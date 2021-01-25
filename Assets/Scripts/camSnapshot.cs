@@ -35,7 +35,7 @@ public class camSnapshot : MonoBehaviour
         }
     }
 
-    public void CallTakeSnapshotIndividual(int iterationNum, int objNum, string imageType)
+    public void CallTakeSnapshotIndividual(GameObject spawnedObject, int iterationNum, int objNum, string imageType)
     {
         Texture2D snapshot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
         snapCam.Render();
@@ -43,11 +43,12 @@ public class camSnapshot : MonoBehaviour
         snapshot.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0);
         byte[] bytes = snapshot.EncodeToPNG();
         string fileName = SnapshotNameIndex();
+        string coneShortName = coneColor(spawnedObject.name);
         index++;
         System.IO.File.WriteAllBytes(fileName, bytes);
         if (System.IO.File.Exists(fileName))
         {
-            string newFileName = $"img_{iterationNum.ToString().PadLeft(5, '0')}_obj_{objNum.ToString().PadLeft(3, '0')}";
+            string newFileName = $"img_{iterationNum.ToString().PadLeft(5, '0')}_{coneShortName}_{objNum.ToString().PadLeft(3, '0')}";
             System.IO.File.Move(fileName, (string.Format("C:/apps/synthConesTest/captures/{0}/individual/{1}.png", imageType, newFileName)));
         }
     }
@@ -55,5 +56,21 @@ public class camSnapshot : MonoBehaviour
     string SnapshotNameIndex()
     {
         return string.Format("{0}/Snapshots/snap_{1}x{2}_{3}_{4}.png", Application.dataPath, resWidth, resHeight, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"), index);
+    }
+
+    string coneColor(string coneLongName)
+    {
+        if(coneLongName == "TrafficConeBlueWhite(Clone)")
+        {
+            return "blueCone";
+        }
+        else if (coneLongName == "TrafficConeOrangeWhite(Clone)")
+        {
+            return "orangeCone";
+        }
+        else
+        {
+            return "yellowCone";
+        }
     }
 }

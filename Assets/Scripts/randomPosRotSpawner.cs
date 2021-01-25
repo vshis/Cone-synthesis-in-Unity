@@ -122,7 +122,7 @@ public class randomPosRotSpawner : MonoBehaviour
             GO.GetComponent<MeshRenderer>().material = whiteEmMat;  //change material to plain white
             if (save)
             {
-                snapCam.CallTakeSnapshotIndividual(iterationNumber, iterationNumberPerObjectInImg, imageType);
+                snapCam.CallTakeSnapshotIndividual(GO, iterationNumber, iterationNumberPerObjectInImg, imageType);
             }
             GO.GetComponent<MeshRenderer>().material = originalMaterial;    //return the material to the original material
             rend.enabled = false;

@@ -384,8 +384,8 @@ MonoBehaviour:
   spawnPoint: {fileID: 609353948}
   minObjects: 10
   maxObjects: 50
-  trainingImages: 5
-  validationImages: 3
+  trainingImages: 3
+  validationImages: 0
   rend: {fileID: 0}
   whiteEmMat: {fileID: 2100000, guid: 11a072daed3869049bb541e417578c9b, type: 2}
   save: 1
