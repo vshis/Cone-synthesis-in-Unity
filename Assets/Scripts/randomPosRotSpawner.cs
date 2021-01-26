@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 
 public class randomPosRotSpawner : MonoBehaviour
 {
@@ -42,10 +43,12 @@ public class randomPosRotSpawner : MonoBehaviour
     {
         if (trainingImages > Time.frameCount - 1)
         {
+            Resources.UnloadUnusedAssets();
             SpawnRandom(trainString);
         }
         else if (trainingImages + validationImages > Time.frameCount - 1)
         {
+            Resources.UnloadUnusedAssets();
             SpawnRandom(valString);
         }
         else if (trainingImages + validationImages == Time.frameCount - 1)
@@ -140,6 +143,7 @@ public class randomPosRotSpawner : MonoBehaviour
             GO.GetComponent<MeshRenderer>().material = originalMaterial;    //return the material to the original material
             rend.enabled = false;
             Destroy(GO);
+            //AssetBundle.Unload(false);
             iterationNumberPerObjectInImg++;
         }
         RendOn(objectsThisTime);
