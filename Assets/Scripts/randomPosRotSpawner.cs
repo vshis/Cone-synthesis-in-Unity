@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class randomPosRotSpawner : MonoBehaviour
 {
@@ -22,7 +23,18 @@ public class randomPosRotSpawner : MonoBehaviour
     int iterationNumber = 0;
     string trainString = "train";
     string valString = "val";
+    System.IO.DirectoryInfo di = new DirectoryInfo("C:/apps/synthConesTest/captures");  //directory and its subdirectories where .png files will be deleted
 
+    void Start()
+    {
+        if (save)
+        {
+            foreach (FileInfo imageFile in di.EnumerateFiles("*.png", SearchOption.AllDirectories))
+            {
+                imageFile.Delete();
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -34,11 +46,6 @@ public class randomPosRotSpawner : MonoBehaviour
         {
             SpawnRandom(valString);
         }
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    SpawnRandom();
-        //}
     }
 
     int GetRandom(int count)

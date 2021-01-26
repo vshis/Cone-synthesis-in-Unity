@@ -30,7 +30,7 @@ public class camSnapshot : MonoBehaviour
         System.IO.File.WriteAllBytes(fileName, bytes);
         if (System.IO.File.Exists(fileName))
         {
-            string newFileName = $"img_{iterationNum.ToString().PadLeft(5, '0')}";
+            string newFileName = $"{iterationNum.ToString().PadLeft(5, '0')}";
             System.IO.File.Move(fileName, (string.Format("C:/apps/synthConesTest/captures/{0}/{1}.png", imageType, newFileName)));
         }
     }
@@ -48,7 +48,7 @@ public class camSnapshot : MonoBehaviour
         System.IO.File.WriteAllBytes(fileName, bytes);
         if (System.IO.File.Exists(fileName))
         {
-            string newFileName = $"img_{iterationNum.ToString().PadLeft(5, '0')}_{coneShortName}_{objNum.ToString().PadLeft(3, '0')}";
+            string newFileName = $"{iterationNum.ToString().PadLeft(5, '0')}_{coneShortName}_{objNum.ToString().PadLeft(3, '0')}";
             System.IO.File.Move(fileName, (string.Format("C:/apps/synthConesTest/captures/{0}/individual/{1}.png", imageType, newFileName)));
         }
     }
