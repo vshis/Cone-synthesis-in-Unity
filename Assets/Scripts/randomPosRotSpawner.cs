@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Diagnostics;
-using System.Threading;
+//using System.Threading;
 
 public class randomPosRotSpawner : MonoBehaviour
 {
@@ -53,7 +53,11 @@ public class randomPosRotSpawner : MonoBehaviour
         }
         else if (trainingImages + validationImages == Time.frameCount - 1)
         {
-            print(string.Format("Synthesis completed. Synthesised {0} images in hh/mm/ss {1}", Time.frameCount - 1, sw.Elapsed));
+            print(string.Format("Synthesis completed. Synthesised {0} images in hh:mm:ss {1}", Time.frameCount - 1, sw.Elapsed));
+        }
+        else
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 
