@@ -24,8 +24,9 @@ public class randomPosRotSpawner : MonoBehaviour
     Material originalMaterial;
     int iterationNumber = 0;
     string trainString = "train";
-    string valString = "val";
-    System.IO.DirectoryInfo di = new DirectoryInfo("C:/apps/synthConesTest/captures");  //directory and its subdirectories where .png files will be deleted
+    string valString = "valid";
+    static string capturesDir = "C:/apps/synthConesTest/captures";
+    System.IO.DirectoryInfo di = new DirectoryInfo(capturesDir);  //directory and its subdirectories where .png files will be deleted
     Stopwatch sw = Stopwatch.StartNew();
 
     void Start()
@@ -83,9 +84,19 @@ public class randomPosRotSpawner : MonoBehaviour
     Vector3 GetRandomRotation()
     {
         Vector3 euler = transform.eulerAngles;
-        euler.x = Random.Range(-40f, 40f);
-        euler.y = Random.Range(0f, 0f);
-        euler.z = Random.Range(-40f, 40f);
+        //angle of cones between -50 and -45, 45 and 50 as we don't really see cones from above so don't need many of them looking like that
+        euler.x = Random.Range(-50f, -40f);
+        if (euler.x > -45f)
+        {
+            euler.x += 90f;
+        }
+        euler.y = Random.Range(90f, -90f);
+        //same for z as for x
+        euler.z = Random.Range(-50f, -40f);
+        if (euler.z > -45f)
+        {
+            euler.z += 90f;
+        }
         return (euler);
     }
 
@@ -128,7 +139,7 @@ public class randomPosRotSpawner : MonoBehaviour
         //Taking pictures
         if (save)
         {
-            snapCam.CallTakeSnapshotAll(iterationNumber, imageType);     //Picture of the whole setting
+            snapCam.CallTakeSnapshotAll(iterationNumber, imageType, capturesDir);     //Picture of the whole setting
         }
         RendOff(objectsThisTime);
         background.layer = LayerMask.NameToLayer("LightIgnored");
@@ -142,12 +153,11 @@ public class randomPosRotSpawner : MonoBehaviour
             GO.GetComponent<MeshRenderer>().material = whiteEmMat;  //change material to plain white
             if (save)
             {
-                snapCam.CallTakeSnapshotIndividual(GO, iterationNumber, iterationNumberPerObjectInImg, imageType);
+                snapCam.CallTakeSnapshotIndividual(GO, iterationNumber, iterationNumberPerObjectInImg, imageType, capturesDir);
             }
             GO.GetComponent<MeshRenderer>().material = originalMaterial;    //return the material to the original material
             rend.enabled = false;
             Destroy(GO);
-            //AssetBundle.Unload(false);
             iterationNumberPerObjectInImg++;
         }
         RendOn(objectsThisTime);
