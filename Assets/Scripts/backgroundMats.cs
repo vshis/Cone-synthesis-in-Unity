@@ -6,16 +6,19 @@ public class backgroundMats : MonoBehaviour
 {
     public GameObject background;
     public Material[] mats;
-
+    Material newMat;
+    float textureScale = 50f;
 
     int GetRandom(int count)
     {
         return Random.Range(0, count);
     }
-
     
     void Update()
     {
-        background.GetComponent<MeshRenderer>().material = mats[GetRandom(mats.Length)];
+        newMat = mats[GetRandom(mats.Length)];
+        background.GetComponent<MeshRenderer>().material = newMat;
+        textureScale = Random.Range(20f, 50f);
+        background.GetComponent<Renderer>().material.mainTextureScale = new Vector2(textureScale, textureScale);
     }
 }

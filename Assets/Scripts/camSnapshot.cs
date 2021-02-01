@@ -8,14 +8,13 @@ public class camSnapshot : MonoBehaviour
     Camera snapCam;
 
     int index = 0;
-
     public int resWidth = 512;
     public int resHeight = 512;
+
     // Start is called before the first frame update
     void Start()
     {
         snapCam = GetComponent<Camera>();
-
     }
 
     public void CallTakeSnapshotAll(int iterationNum, string imageType, string capturesDir)

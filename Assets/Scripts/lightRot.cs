@@ -15,6 +15,6 @@ public class lightRot : MonoBehaviour
     void Update()
     {
         diriectionalLight.intensity = Random.Range(0.5f, 3f);
-        transform.RotateAround(target.transform.position, Vector3.up, Random.Range(0f, 360f));
+        transform.RotateAround(target.transform.position, Vector3.up, Random.Range(0, 360f));
     }
 }

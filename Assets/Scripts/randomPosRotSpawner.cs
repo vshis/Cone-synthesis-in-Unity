@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Diagnostics;
-//using System.Threading;
 
 public class randomPosRotSpawner : MonoBehaviour
 {
@@ -12,6 +11,7 @@ public class randomPosRotSpawner : MonoBehaviour
     public GameObject[] spawnees;
     public GameObject background;
     public Transform spawnPoint;
+    public GameObject verticalBackground;
     public int minObjects = 10;
     public int maxObjects = 50;
     public int trainingImages = 0;
@@ -31,6 +31,7 @@ public class randomPosRotSpawner : MonoBehaviour
 
     void Start()
     {
+        RendOffSingle(verticalBackground);
         if (save)
         {
             foreach (FileInfo imageFile in di.EnumerateFiles("*.*", SearchOption.AllDirectories))
@@ -69,9 +70,9 @@ public class randomPosRotSpawner : MonoBehaviour
 
     Vector3 GetRandomSpawnPoint()
     {
-        float newX = Random.Range(-5.5f, 5.5f);
-        float newY = Random.Range(0f, 10f);
-        float newZ = Random.Range(-5.5f, 5.5f);
+        float newX = Random.Range(-40f, 40f);
+        float newY = Random.Range(0f, 0f);
+        float newZ = Random.Range(-10f, 50f);
         return (new Vector3(newX, newY, newZ));
     }
 
@@ -84,19 +85,9 @@ public class randomPosRotSpawner : MonoBehaviour
     Vector3 GetRandomRotation()
     {
         Vector3 euler = transform.eulerAngles;
-        //angle of cones between -50 and -45, 45 and 50 as we don't really see cones from above so don't need many of them looking like that
-        euler.x = Random.Range(-50f, -40f);
-        if (euler.x > -45f)
-        {
-            euler.x += 90f;
-        }
-        euler.y = Random.Range(90f, -90f);
-        //same for z as for x
-        euler.z = Random.Range(-50f, -40f);
-        if (euler.z > -45f)
-        {
-            euler.z += 90f;
-        }
+        euler.x = 0f;
+        euler.z = 0f;
+        euler.y = Random.Range(-180f, 180f);
         return (euler);
     }
 
@@ -118,7 +109,7 @@ public class randomPosRotSpawner : MonoBehaviour
                 spawnAttempts++;
                 newPosition = GetRandomSpawnPoint();
                 validPosition = true;
-                if (Physics.CheckSphere(newPosition, checkRadius))
+                if (Physics.CheckSphere(newPosition, checkRadius, 9))
                 {
                     validPosition = false;
                 }
@@ -142,6 +133,7 @@ public class randomPosRotSpawner : MonoBehaviour
             snapCam.CallTakeSnapshotAll(iterationNumber, imageType, capturesDir);     //Picture of the whole setting
         }
         RendOff(objectsThisTime);
+        RendOnSingle(verticalBackground);
         background.layer = LayerMask.NameToLayer("LightIgnored");
         //individual cones pics
         int iterationNumberPerObjectInImg = 0;
@@ -161,7 +153,8 @@ public class randomPosRotSpawner : MonoBehaviour
             iterationNumberPerObjectInImg++;
         }
         RendOn(objectsThisTime);
-        background.layer = LayerMask.NameToLayer("Default");
+        RendOffSingle(verticalBackground);
+        background.layer = LayerMask.NameToLayer("Background");
         iterationNumber++;
     }
 
@@ -181,5 +174,17 @@ public class randomPosRotSpawner : MonoBehaviour
             rend = GO.GetComponent<Renderer>();
             rend.enabled = true;
         }
+    }
+
+    void RendOffSingle(GameObject obj)
+    {
+        rend = obj.GetComponent<Renderer>();
+        rend.enabled = false;
+    }
+
+    void RendOnSingle(GameObject obj)
+    {
+        rend = obj.GetComponent<Renderer>();
+        rend.enabled = true;
     }
 }
