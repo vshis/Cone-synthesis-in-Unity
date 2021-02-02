@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 13f6e5eed33d84c76979f1ec06b5e48c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 705507994}
+  m_Sun: {fileID: 1449263597}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -181,7 +181,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.9817147, b: 0.8726415, a: 1}
-  m_Intensity: 0.4
+  m_Intensity: 0.5
   m_Range: 2050
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -368,9 +368,9 @@ MonoBehaviour:
   background: {fileID: 1409640432}
   spawnPoint: {fileID: 609353948}
   verticalBackground: {fileID: 1075234616}
-  minObjects: 10
+  minObjects: 15
   maxObjects: 40
-  trainingImages: 10
+  trainingImages: 50
   validationImages: 0
   rend: {fileID: 0}
   whiteEmMat: {fileID: 2100000, guid: 11a072daed3869049bb541e417578c9b, type: 2}
@@ -533,7 +533,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 522681f20cecc2f4691e3ffc8cc64351, type: 2}
+  - {fileID: 2100000, guid: 9447935ca27fed54c9c28112b77d5908, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -570,8 +570,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409640432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 40}
-  m_LocalScale: {x: 200, y: 0.1, z: 110}
+  m_LocalPosition: {x: 0, y: -0.5, z: 21}
+  m_LocalScale: {x: 200, y: 0.1, z: 150}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -607,6 +607,49 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 5674184a87d87e54ca8047426601a57b, type: 2}
   - {fileID: 2100000, guid: 748487d582b00d847bd57517f78d8e8f, type: 2}
   - {fileID: 2100000, guid: 36508c771463abf43b7135d9539897e7, type: 2}
+  - {fileID: 2100000, guid: 9447935ca27fed54c9c28112b77d5908, type: 2}
+  - {fileID: 2100000, guid: 74c690b29deaf184eb0f56c386f5ef8f, type: 2}
+  - {fileID: 2100000, guid: 52c9083b299dfa3479caa56bb9f0a98c, type: 2}
+  - {fileID: 2100000, guid: 46be5f15e363aac4381cc9eb6efc673f, type: 2}
+  - {fileID: 2100000, guid: 04652004be933ba41b4ac32ddd7f5eeb, type: 2}
+  - {fileID: 2100000, guid: 8e53f458c50238748a0e25fbe049b465, type: 2}
+  - {fileID: 2100000, guid: b1d36282b2c17c84fb2f618cba0439a2, type: 2}
+  - {fileID: 2100000, guid: ebf8b4d16b7f8924fb9116d2e3207836, type: 2}
+  - {fileID: 2100000, guid: 90caba3031f3bb6489b26535a49cd81d, type: 2}
+  - {fileID: 2100000, guid: 3ff803e95ede8de42a2adbcd1dd530d6, type: 2}
+  - {fileID: 2100000, guid: 39d9ac5066e1af74cadba0ad038e742b, type: 2}
+  - {fileID: 2100000, guid: 90958dd685f590642806ebb68b473bc3, type: 2}
+  - {fileID: 2100000, guid: 0fc0bf58c56418e44b94d145ca6f5db1, type: 2}
+  - {fileID: 2100000, guid: acbeb59509e47e942937ab47a0abc310, type: 2}
+  - {fileID: 2100000, guid: 6c096acbd65465b438d9b0a3d141cff1, type: 2}
+  - {fileID: 2100000, guid: edb56784830ff6e48bc903e1da5bc5ff, type: 2}
+  - {fileID: 2100000, guid: 573165ec89c0f4a488f962940dc8d6d9, type: 2}
+  - {fileID: 2100000, guid: 35b3905e878c7c14a804d8e50b2f37d5, type: 2}
+  - {fileID: 2100000, guid: 03df648f2a2e48843962ec5471b9e969, type: 2}
+  - {fileID: 2100000, guid: d9118644cf18d114abae307878884709, type: 2}
+  skyboxes:
+  - {fileID: 2100000, guid: 73324b55f67f54c7bbf43204788b8bbe, type: 2}
+  - {fileID: 2100000, guid: 3a6db933fef1d4c759bf21220420505f, type: 2}
+  - {fileID: 2100000, guid: eac2ef371405749e0bd050b4c3272f16, type: 2}
+  - {fileID: 2100000, guid: 01f4eb1c73693428d923f1520032e7f9, type: 2}
+  - {fileID: 2100000, guid: c82a334cf5a5e47978749c210cee72a7, type: 2}
+  - {fileID: 2100000, guid: cdbb40e11399e4a17882ada20a1b896a, type: 2}
+  - {fileID: 2100000, guid: fe4e130f9947345a2b213cb5038851a2, type: 2}
+  - {fileID: 2100000, guid: 51b74d7bad397457d883c5940f7664d8, type: 2}
+  - {fileID: 2100000, guid: 54fe2f000ad8f424fb63cc3ea0ae2bb2, type: 2}
+  - {fileID: 2100000, guid: 13f6e5eed33d84c76979f1ec06b5e48c, type: 2}
+  - {fileID: 2100000, guid: c8e304140c860744783e1aa250535791, type: 2}
+  - {fileID: 2100000, guid: 9b7ca251e8646c54db0a77ae2021bf9b, type: 2}
+  - {fileID: 2100000, guid: 23002981675cee84bbbebf0794b85ea2, type: 2}
+  - {fileID: 2100000, guid: 4e4980336892d9546bf0bf0e3f30c265, type: 2}
+  - {fileID: 2100000, guid: 03389866351d19a47adc95c57d054097, type: 2}
+  - {fileID: 2100000, guid: b87cacf51931a5841b5931a664fd0730, type: 2}
+  - {fileID: 2100000, guid: 5336727d7be32404c9ac396789142e1c, type: 2}
+  - {fileID: 2100000, guid: ebc9df751692e5740abb521f3539fcd0, type: 2}
+  - {fileID: 2100000, guid: 52d44e5692d0c134f9b2ed3abd21fb73, type: 2}
+  - {fileID: 2100000, guid: 47b7a45414f3b564e9e8349bfa18b29f, type: 2}
+  - {fileID: 2100000, guid: 0657637449dfba34f84c2e4cf23683b6, type: 2}
+  - {fileID: 2100000, guid: 356decb03293f22498cb5565d128c9da, type: 2}
 --- !u!1 &1449263596
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +679,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.4
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

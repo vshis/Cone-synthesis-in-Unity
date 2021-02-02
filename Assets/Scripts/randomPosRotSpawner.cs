@@ -26,7 +26,7 @@ public class randomPosRotSpawner : MonoBehaviour
     string trainString = "train";
     string valString = "valid";
     static string capturesDir = "C:/apps/synthConesTest/captures";
-    System.IO.DirectoryInfo di = new DirectoryInfo(capturesDir);  //directory and its subdirectories where .png files will be deleted
+    System.IO.DirectoryInfo di = new DirectoryInfo(capturesDir);  //this takes the Directory.info format of the directory where all files in the captures directory and its subdirectories will be deleted
     Stopwatch sw = Stopwatch.StartNew();
 
     void Start()
@@ -78,7 +78,7 @@ public class randomPosRotSpawner : MonoBehaviour
 
     Vector3 GetRandomScale()
     {
-        float sx = Random.Range(2f, 4f);
+        float sx = Random.Range(4f, 6f);
         return (new Vector3(sx, sx, sx));
     }
 
