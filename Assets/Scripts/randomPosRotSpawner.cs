@@ -9,15 +9,19 @@ public class randomPosRotSpawner : MonoBehaviour
 {
     public camSnapshot snapCam;
     public GameObject[] spawnees;
+    public GameObject[] props;
     public GameObject background;
     public Transform spawnPoint;
     public GameObject verticalBackground;
     public int minObjects = 10;
     public int maxObjects = 50;
+    public int minProps = 0;
+    public int maxProps = 0;
     public int trainingImages = 0;
     public int validationImages = 0;
     public Renderer rend;
     public Material whiteEmMat;
+    public Material blackEmMat;
     public bool save = false;
     int randomInt;
     Vector3 scale;
@@ -68,27 +72,63 @@ public class randomPosRotSpawner : MonoBehaviour
         return Random.Range(0, count);
     }
 
-    Vector3 GetRandomSpawnPoint()
+    Vector3 GetRandomSpawnPoint(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
     {
-        float newX = Random.Range(-40f, 40f);
-        float newY = Random.Range(0f, 0f);
-        float newZ = Random.Range(-10f, 50f);
+        float newX = Random.Range(minX, maxX);
+        float newY = Random.Range(minY, maxY);
+        float newZ = Random.Range(minX, maxZ);
         return (new Vector3(newX, newY, newZ));
     }
 
-    Vector3 GetRandomScale()
+    Vector3 GetRandomScale(float minScale, float maxScale)
     {
-        float sx = Random.Range(4f, 6f);
+        float sx = Random.Range(minScale, maxScale);
         return (new Vector3(sx, sx, sx));
     }
 
-    Vector3 GetRandomRotation()
+    Vector3 GetRandomRotation(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
     {
         Vector3 euler = transform.eulerAngles;
-        euler.x = 0f;
-        euler.z = 0f;
-        euler.y = Random.Range(-180f, 180f);
+        euler.x = Random.Range(minX, maxX);
+        euler.y = Random.Range(minY, maxY);
+        euler.z = Random.Range(minZ, maxZ);
         return (euler);
+    }
+
+    List<GameObject> SpawnProps(int propsToSpawn)
+    {
+        List<GameObject> propsList = new List<GameObject>();
+        while (propsToSpawn > 0)
+        {
+            propsToSpawn -= 1;
+            //Check if valid spawn position
+            bool validPosition = false;
+            Vector3 newPosition = Vector3.zero;
+            float checkRadius = 4.5f;
+            int maxSpawnAttemptsPerObstacle = 10;
+            int spawnAttempts = 0;
+            while (!validPosition && spawnAttempts < maxSpawnAttemptsPerObstacle)
+            {
+                spawnAttempts++;
+                newPosition = GetRandomSpawnPoint(-40f, 40f, 0f, 0f, 10f, 50f);
+                validPosition = true;
+                if (Physics.CheckSphere(newPosition, checkRadius, 9))
+                {
+                    validPosition = false;
+                }
+            }
+
+            if (validPosition && spawnAttempts < maxSpawnAttemptsPerObstacle)
+            {
+                randomInt = GetRandom(props.Length);
+                GameObject newProp = (GameObject)Instantiate(props[randomInt], newPosition, spawnPoint.rotation);
+                newProp.transform.localScale = GetRandomScale(5f, 5f);
+                Vector3 newRot = GetRandomRotation(0f, 0f, -180f, 180f, 0f, 0f);
+                newProp.transform.eulerAngles = newRot;
+                propsList.Add(newProp);
+            }
+        }
+        return propsList;
     }
 
     void SpawnRandom(string imageType)
@@ -107,7 +147,7 @@ public class randomPosRotSpawner : MonoBehaviour
             while (!validPosition && spawnAttempts < maxSpawnAttemptsPerObstacle)
             {
                 spawnAttempts++;
-                newPosition = GetRandomSpawnPoint();
+                newPosition = GetRandomSpawnPoint(-40f, 40f, 0f, 0f, -10f, 50f);
                 validPosition = true;
                 if (Physics.CheckSphere(newPosition, checkRadius, 9))
                 {
@@ -119,42 +159,40 @@ public class randomPosRotSpawner : MonoBehaviour
             {
                 randomInt = GetRandom(spawnees.Length);
                 GameObject newGO = (GameObject)Instantiate(spawnees[randomInt], newPosition, spawnPoint.rotation);
-                newGO.transform.localScale = GetRandomScale();
-                Vector3 newRot = GetRandomRotation();
+                newGO.transform.localScale = GetRandomScale(4f, 6f);
+                Vector3 newRot = GetRandomRotation(0f, 0f, -180f, 180f, 0f, 0f);
                 newGO.transform.eulerAngles = newRot;
                 objectsThisTime.Add(newGO);
             }
         }
-        print(objectsThisTime.Count);
-        
+        List<GameObject> propsThisTime = SpawnProps(Random.Range(minProps, maxProps));
+        print(string.Format("Total of {0} cones and {1} props spawned.", objectsThisTime.Count, propsThisTime.Count));
+
         //Taking pictures
         if (save)
         {
             snapCam.CallTakeSnapshotAll(iterationNumber, imageType, capturesDir);     //Picture of the whole setting
         }
-        RendOff(objectsThisTime);
+        materialBlack(objectsThisTime);
+        materialBlack(propsThisTime);
+        materialBlackSingle(background);
         RendOnSingle(verticalBackground);
-        background.layer = LayerMask.NameToLayer("LightIgnored");
         //individual cones pics
         int iterationNumberPerObjectInImg = 0;
         foreach (GameObject GO in objectsThisTime)
         {
-            rend = GO.GetComponent<Renderer>();
-            rend.enabled = true;
             originalMaterial = GO.GetComponent<MeshRenderer>().material;    //find the original material
-            GO.GetComponent<MeshRenderer>().material = whiteEmMat;  //change material to plain white
+            materialWhiteSingle(GO);
             if (save)
             {
                 snapCam.CallTakeSnapshotIndividual(GO, iterationNumber, iterationNumberPerObjectInImg, imageType, capturesDir);
             }
-            GO.GetComponent<MeshRenderer>().material = originalMaterial;    //return the material to the original material
-            rend.enabled = false;
-            Destroy(GO);
+            GO.GetComponent<MeshRenderer>().material = originalMaterial;    //return the material to the original material           
             iterationNumberPerObjectInImg++;
         }
-        RendOn(objectsThisTime);
+        destroyListOfGO(objectsThisTime);
+        destroyListOfGO(propsThisTime);
         RendOffSingle(verticalBackground);
-        background.layer = LayerMask.NameToLayer("Background");
         iterationNumber++;
     }
 
@@ -186,5 +224,64 @@ public class randomPosRotSpawner : MonoBehaviour
     {
         rend = obj.GetComponent<Renderer>();
         rend.enabled = true;
+    }
+
+    void materialBlackSingle(GameObject obj)
+    {
+        Material[] mats = obj.GetComponent<MeshRenderer>().materials;
+        for (int i = 0; i< mats.Length; i++)
+        {
+            mats[i] = blackEmMat;
+        }
+        obj.GetComponent<MeshRenderer>().materials = mats;
+    }
+
+    //void materialBlackSingle(GameObject obj)
+    //{
+    //    obj.GetComponent<MeshRenderer>().material = blackEmMat;
+    //}
+
+    void materialWhiteSingle(GameObject obj)
+    {
+        Material[] mats = obj.GetComponent<MeshRenderer>().materials;
+        for (int i = 0; i < mats.Length; i++)
+        {
+            mats[i] = whiteEmMat;
+        }
+        obj.GetComponent<MeshRenderer>().materials = mats;
+    }
+
+    void materialBlack(List<GameObject> objs)
+    {
+        foreach (var GO in objs)
+        {
+            Material[] mats = GO.GetComponent<MeshRenderer>().materials;
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i] = blackEmMat;
+            }
+            GO.GetComponent<MeshRenderer>().materials = mats;
+        }
+    }
+
+    void materialWhite(List<GameObject> objs)
+    {
+        foreach (var GO in objs)
+        {
+            Material[] mats = GO.GetComponent<MeshRenderer>().materials;
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i] = whiteEmMat;
+            }
+            GO.GetComponent<MeshRenderer>().materials = mats;
+        }
+    }
+
+    void destroyListOfGO(List<GameObject> objs)
+    {
+        foreach (var GO in objs)
+        {
+            Destroy(GO);
+        }
     }
 }
