@@ -10,6 +10,8 @@ public class randomPosRotSpawner : MonoBehaviour
     public camSnapshot snapCam;
     public GameObject[] spawnees;
     public GameObject[] props;
+    //props parameters 
+    //other parameters
     public GameObject background;
     public Transform spawnPoint;
     public GameObject verticalBackground;
@@ -76,7 +78,7 @@ public class randomPosRotSpawner : MonoBehaviour
     {
         float newX = Random.Range(minX, maxX);
         float newY = Random.Range(minY, maxY);
-        float newZ = Random.Range(minX, maxZ);
+        float newZ = Random.Range(minZ, maxZ);
         return (new Vector3(newX, newY, newZ));
     }
 
@@ -104,13 +106,13 @@ public class randomPosRotSpawner : MonoBehaviour
             //Check if valid spawn position
             bool validPosition = false;
             Vector3 newPosition = Vector3.zero;
-            float checkRadius = 4.5f;
+            float checkRadius = 15f;
             int maxSpawnAttemptsPerObstacle = 10;
             int spawnAttempts = 0;
             while (!validPosition && spawnAttempts < maxSpawnAttemptsPerObstacle)
             {
                 spawnAttempts++;
-                newPosition = GetRandomSpawnPoint(-40f, 40f, 0f, 0f, 10f, 50f);
+                newPosition = GetRandomSpawnPoint(-40f, 40f, 0f, 0f, 0f, 70f);
                 validPosition = true;
                 if (Physics.CheckSphere(newPosition, checkRadius, 9))
                 {
@@ -122,7 +124,7 @@ public class randomPosRotSpawner : MonoBehaviour
             {
                 randomInt = GetRandom(props.Length);
                 GameObject newProp = (GameObject)Instantiate(props[randomInt], newPosition, spawnPoint.rotation);
-                newProp.transform.localScale = GetRandomScale(5f, 5f);
+                newProp.transform.localScale = GetRandomScale(0.5f, 1.5f);
                 Vector3 newRot = GetRandomRotation(0f, 0f, -180f, 180f, 0f, 0f);
                 newProp.transform.eulerAngles = newRot;
                 propsList.Add(newProp);
@@ -147,7 +149,7 @@ public class randomPosRotSpawner : MonoBehaviour
             while (!validPosition && spawnAttempts < maxSpawnAttemptsPerObstacle)
             {
                 spawnAttempts++;
-                newPosition = GetRandomSpawnPoint(-40f, 40f, 0f, 0f, -10f, 50f);
+                newPosition = GetRandomSpawnPoint(-40f, 40f, 0f, 0f, 0f, 50f);
                 validPosition = true;
                 if (Physics.CheckSphere(newPosition, checkRadius, 9))
                 {
@@ -235,11 +237,6 @@ public class randomPosRotSpawner : MonoBehaviour
         }
         obj.GetComponent<MeshRenderer>().materials = mats;
     }
-
-    //void materialBlackSingle(GameObject obj)
-    //{
-    //    obj.GetComponent<MeshRenderer>().material = blackEmMat;
-    //}
 
     void materialWhiteSingle(GameObject obj)
     {

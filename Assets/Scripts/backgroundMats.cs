@@ -9,7 +9,7 @@ public class backgroundMats : MonoBehaviour
     public Material[] mats;
     public Material[] skyboxes;
     Material newMat;
-    float textureScale = 7f;
+    float textureScale = 20f;
 
     int GetRandom(int count)
     {
