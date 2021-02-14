@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System.IO;
 using System.Diagnostics;
 
@@ -10,8 +9,6 @@ public class randomPosRotSpawner : MonoBehaviour
     public camSnapshot snapCam;
     public GameObject[] spawnees;
     public GameObject[] props;
-    //props parameters 
-    //other parameters
     public GameObject background;
     public Transform spawnPoint;
     public GameObject verticalBackground;
