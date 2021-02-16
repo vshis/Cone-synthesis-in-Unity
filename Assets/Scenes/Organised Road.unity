@@ -434,7 +434,7 @@ MonoBehaviour:
   maxObjects: 30
   minProps: 15
   maxProps: 40
-  trainingImages: 30
+  trainingImages: 10
   validationImages: 0
   rend: {fileID: 0}
   whiteEmMat: {fileID: 2100000, guid: 11a072daed3869049bb541e417578c9b, type: 2}
@@ -882,7 +882,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640421603}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.449, z: 123.3}
+  m_LocalPosition: {x: 0, y: -0.44, z: 123.3}
   m_LocalScale: {x: 1, y: 0.1, z: 40}
   m_Children: []
   m_Father: {fileID: 0}

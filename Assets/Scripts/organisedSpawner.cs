@@ -166,7 +166,7 @@ public class organisedSpawner : MonoBehaviour
             //Check if valid spawn position
             bool validPosition = false;
             Vector3 newPosition = Vector3.zero;
-            float checkRadius = 2.5f;
+            float checkRadius = 5f;
             int maxSpawnAttemptsPerObstacle = 10;
             int spawnAttempts = 0;
             while (!validPosition && spawnAttempts < maxSpawnAttemptsPerObstacle)
@@ -185,7 +185,7 @@ public class organisedSpawner : MonoBehaviour
             {
                 randomInt = GetRandom(spawnees.Length);
                 GameObject newGO = (GameObject)Instantiate(spawnees[randomInt], newPosition, spawnPoint.rotation);
-                newGO.transform.localScale = GetRandomScale(4f, 6f);
+                newGO.transform.localScale = GetRandomScale(3f, 3f);
                 Vector3 newRot = GetRandomRotation(0f, 0f, -180f, 180f, 0f, 0f);
                 newGO.transform.eulerAngles = newRot;
                 objectsThisTime.Add(newGO);
