@@ -18,6 +18,7 @@ public class randomPosRotSpawner : MonoBehaviour
     public int maxProps = 0;
     public int trainingImages = 0;
     public int validationImages = 0;
+    public int testImages = 0;
     public Renderer rend;
     public Material whiteEmMat;
     public Material blackEmMat;
@@ -28,6 +29,7 @@ public class randomPosRotSpawner : MonoBehaviour
     int iterationNumber = 0;
     string trainString = "train";
     string valString = "valid";
+    string testString = "test";
     static string capturesDir = "C:/apps/synthConesTest/captures";
     System.IO.DirectoryInfo di = new DirectoryInfo(capturesDir);  //this takes the Directory.info format of the directory where all files in the captures directory and its subdirectories will be deleted
     Stopwatch sw = Stopwatch.StartNew();
@@ -56,12 +58,18 @@ public class randomPosRotSpawner : MonoBehaviour
             Resources.UnloadUnusedAssets();
             SpawnRandom(valString);
         }
-        else if (trainingImages + validationImages == Time.frameCount - 1)
+        else if (trainingImages + validationImages + testImages > Time.frameCount - 1)
+        {
+            Resources.UnloadUnusedAssets();
+            SpawnRandom(testString);
+        }
+        else if (trainingImages + validationImages + testImages == Time.frameCount - 1)
         {
             print(string.Format("Synthesis completed. Synthesised {0} images in hh:mm:ss {1}", Time.frameCount - 1, sw.Elapsed));
         }
         else
         {
+            Resources.UnloadUnusedAssets();
             UnityEditor.EditorApplication.isPlaying = false;
         }
     }

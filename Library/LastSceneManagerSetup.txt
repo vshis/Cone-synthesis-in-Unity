@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/RandomSynth.unity
+- path: Assets/Scenes/Organised Road.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
