@@ -20,7 +20,7 @@ public class roadSurfaceChange : MonoBehaviour
         newMat = mats[GetRandom(mats.Length)];
         roadSurface.GetComponent<MeshRenderer>().material = newMat;
         //textureScale = Random.Range(7f, 7f);
-        roadSurface.GetComponent<Renderer>().material.mainTextureScale = new Vector2(1f, textureScale);
+        roadSurface.GetComponent<Renderer>().material.mainTextureScale = new Vector2(3f, textureScale);
     }
 }
 

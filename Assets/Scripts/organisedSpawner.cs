@@ -91,9 +91,9 @@ public class organisedSpawner : MonoBehaviour
     Vector3 ConesSpawnPoint(float minX, float maxX, float minY, float maxY, float minZ, float maxZ) //cones spawn on the road surface
     {
         float newX = Random.Range(minX, maxX);
-        if (newX > -2.5f)
+        if (newX > -10f)
         {
-            newX += 5f;
+            newX += 20f;
         }
         float newY = Random.Range(minY, maxY);
         float newZ = Random.Range(minZ, maxZ);
@@ -103,9 +103,9 @@ public class organisedSpawner : MonoBehaviour
     Vector3 PropsSpawnPoint(float minX, float maxX, float minY, float maxY, float minZ, float maxZ) //other props spawn outside the road surface
     {
         float newX = Random.Range(minX, maxX);
-        if (newX > -7f)
+        if (newX > -18f)
         {
-            newX += 14f;
+            newX += 36f;
         }
         float newY = Random.Range(minY, maxY);
         float newZ = Random.Range(minZ, maxZ);
@@ -143,7 +143,7 @@ public class organisedSpawner : MonoBehaviour
             {
                 spawnAttempts++;
                 //newPosition = GetRandomSpawnPoint(-40f, 26f, 0f, 0f, 0f, 70f);
-                newPosition = PropsSpawnPoint(-40f, 26f, 0f, 0f, 0f, 70f);
+                newPosition = PropsSpawnPoint(-40f, 4f, 0f, 0f, -10f, 90f);
                 validPosition = true;
                 if (Physics.CheckSphere(newPosition, checkRadius, 9))
                 {
@@ -174,14 +174,14 @@ public class organisedSpawner : MonoBehaviour
             //Check if valid spawn position
             bool validPosition = false;
             Vector3 newPosition = Vector3.zero;
-            float checkRadius = 5f;
+            float checkRadius = 8f;
             int maxSpawnAttemptsPerObstacle = 10;
             int spawnAttempts = 0;
             while (!validPosition && spawnAttempts < maxSpawnAttemptsPerObstacle)
             {
                 spawnAttempts++;
                 //newPosition = GetRandomSpawnPoint(-40f, 40f, 0f, 0f, 0f, 50f);
-                newPosition = ConesSpawnPoint(-4.5f, -0.5f, 0f, 0f, 0f, 50f);
+                newPosition = ConesSpawnPoint(-14f, -6f, 0f, 0f, -10f, 60f);
                 validPosition = true;
                 if (Physics.CheckSphere(newPosition, checkRadius, 9))
                 {
@@ -193,7 +193,7 @@ public class organisedSpawner : MonoBehaviour
             {
                 randomInt = GetRandom(spawnees.Length);
                 GameObject newGO = (GameObject)Instantiate(spawnees[randomInt], newPosition, spawnPoint.rotation);
-                newGO.transform.localScale = GetRandomScale(3f, 3f);
+                newGO.transform.localScale = GetRandomScale(4f, 4f);
                 Vector3 newRot = GetRandomRotation(0f, 0f, -180f, 180f, 0f, 0f);
                 newGO.transform.eulerAngles = newRot;
                 objectsThisTime.Add(newGO);
