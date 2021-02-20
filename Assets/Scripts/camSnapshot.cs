@@ -8,17 +8,16 @@ public class camSnapshot : MonoBehaviour
     Camera snapCam;
 
     int index = 0;
-
     public int resWidth = 512;
     public int resHeight = 512;
+
     // Start is called before the first frame update
     void Start()
     {
         snapCam = GetComponent<Camera>();
-
     }
 
-    public void CallTakeSnapshotAll(int iterationNum, string imageType)
+    public void CallTakeSnapshotAll(int iterationNum, string imageType, string capturesDir)
     { 
         Texture2D snapshot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
         snapCam.Render();
@@ -31,11 +30,11 @@ public class camSnapshot : MonoBehaviour
         if (System.IO.File.Exists(fileName))
         {
             string newFileName = $"{iterationNum.ToString().PadLeft(5, '0')}";
-            System.IO.File.Move(fileName, (string.Format("C:/apps/synthConesTest/captures/{0}/{1}.png", imageType, newFileName)));
+            System.IO.File.Move(fileName, (string.Format("{0}/{1}/{2}.png", capturesDir, imageType, newFileName)));
         }
     }
 
-    public void CallTakeSnapshotIndividual(GameObject spawnedObject, int iterationNum, int objNum, string imageType)
+    public void CallTakeSnapshotIndividual(GameObject spawnedObject, int iterationNum, int objNum, string imageType, string capturesDir)
     {
         Texture2D snapshot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
         snapCam.Render();
@@ -49,7 +48,7 @@ public class camSnapshot : MonoBehaviour
         if (System.IO.File.Exists(fileName))
         {
             string newFileName = $"{iterationNum.ToString().PadLeft(5, '0')}_{coneShortName}_{objNum.ToString().PadLeft(3, '0')}";
-            System.IO.File.Move(fileName, (string.Format("C:/apps/synthConesTest/captures/{0}/individual/{1}.png", imageType, newFileName)));
+            System.IO.File.Move(fileName, (string.Format("{0}/{1}/individual/{2}.png", capturesDir, imageType, newFileName)));
         }
     }
 
