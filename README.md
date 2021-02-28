@@ -1,4 +1,6 @@
 # Cone synthesis in Unity
+Coming soon: report exploring the project based on this code.
+
 Generating cones with random grounds, random skyboxes, with random props, all positioned randomly. 
 Default image size: 512x512. 
 
